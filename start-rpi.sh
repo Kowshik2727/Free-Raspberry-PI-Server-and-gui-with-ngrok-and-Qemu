@@ -1,0 +1,13 @@
+sudo qemu-system-arm \
+  -M versatilepb \
+  -cpu arm1176 \
+  -m 256 \
+  -drive "file=2021-01-11-raspios-buster-armhf.img,if=none,index=0,media=disk,format=raw,id=disk0" \
+  -device "virtio-blk-pci,drive=disk0,disable-modern=on,disable-legacy=off" \
+  -net "user,hostfwd=tcp:127.0.0.1:5022-:22" \
+  -net nic \
+  -dtb versatile-pb-buster.dtb \
+  -kernel kernel-qemu-5.4.51-buster \
+  -append 'root=/dev/vda2 panic=1' \
+  -vnc :1 \
+  -no-reboot
